@@ -1,98 +1,178 @@
-//VARIABLES INIIALES
-//ARREGLO CON PRODUCTOS QUE ENTRAN EN EL CARRITO Y TOTAL
-let shoppingCartArray = [];
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
 
-let carrito = [];
-let canItem = 0;
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Abel Narvaez">
+    <title>Album example · Bootstrap v5.3</title>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9">
 
-let total = 0;
-// VARIABLE DEL DIV A DONDE VAN LOS ITEMS SE UTILIZA QUERYSELECTOR
-let productContainer = document.querySelector('.pinturas');
+</head>
 
-//selecciono el elemento dentro de el html que muestra el total
-let totalElement = document.querySelector('.cart-total-title');
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check2" viewBox="0 0 16 16">
+            <path
+                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </symbol>
+        <symbol id="circle-half" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+        </symbol>
+        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+            <path
+                d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+            <path
+                d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+        </symbol>
+        <symbol id="sun-fill" viewBox="0 0 16 16">
+            <path
+                d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+        </symbol>
+    </svg>
 
-//LLAMADO A LA API STORE
-//PETICION DE PRODUCTOS AL SERVIDOR
-
-//fetch('https://api.escuelajs.co/api/v1/products')
-//.then(res => res.json())
-//.then(data => console.log(data));
-
-let res = await fetch('https://colombiaamaarte-8a32e-default-rtdb.firebaseio.com/obra.json')
-let data = await res.json()
-
-//ARREGLO CON PRODUCTOS LIMITAMOS
-let productsArray = data
-
-//IMPRIMIR PRODUCTOS EN PANTALLA
-productsArray.forEach(obra => {
-    // se utiliza innerHTML para decir que va ir sumar al contenido los datos del servidor
-    // tecnica  <p class="card-text">Estilo: ${obra.estilo}</p>
-    productContainer.innerHTML += `
-    <div class="col">
-        <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
-                src="${obra.imagenes.img1}" role="img" aria-label="Placeholder:"
-                preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                    dy=".3em"></text>
-            </svg>
-            <div class="card-body">
-                <p class="card-text">Titulo: ${obra.titulo}</p>
-                <p class="card-text">Autor: ${obra.autor}</p>
-                <p class="card-text">Tecnica: ${obra.tecnica}</p>
-                <p class="card-text">Medidas: ${obra.medidas}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                        <button type="button" value="${obra.id}" class="btn btn-sm btn-outline-secondary compra ">Me Interesa</button>
+    <header data-bs-theme="dark">
+        <div class="collapse text-bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4>ColombiAmArte</h4>
+                        <p class="text-body-secondary">ColombiAmArte es la tienda de pinturas y obras de arte que
+                            estabas buscando.
+                            Nuestros productos de alta calidad y prestigio son la elección perfecta para aquellos que
+                            buscan dar un toque
+                            de sofisticación a su hogar o lugar de trabajo. Contamos con un amplio catálogo de obras de
+                            reconocidos
+                            artistas nacionales e internacionales. Compra con tranquilidad en nuestra tienda segura y
+                            confiable.
+                            ¡Decora con arte y apoya la cultura en Colombia con ColombiAmArte!</p>
                     </div>
-                    <small class="text-body-secondary">USD $${obra.precio}</small>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4>Contacto</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-white">colombiaamaarte@gmail.com</a></li>
+                            <li><a href="#" class="text-white">Telefono: </a></li>
+                            <li><a href="#" class="text-white">Sede Bogota: </a></li>
+                            <li><a href="#" class="text-white">Sede Quito: </a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>`
-});
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <img src="https://lh3.googleusercontent.com/k-G4teQWJKqnJjPEQlmxwfkHIfB3TUIUsmAWub_QIT0vRXSnaqEzjhh2g3jYINEE49jx3WMp54LfoNBqLd9C92eibP1r5PrDcQsFaDZR5RI72f-xllVVdEBQ3kCiuQyay2EFy3BwFI1fYkKwU278kaCbYru-_uF2qky2mzqVnAbOwekwx_ID2_ZMeSEMUQmwjRnD7MPfIjqzo-PbymSEraF5V0XDcAJxj_7G2kq0mn-IwjwjtsjEw7DgogOXHTbPhE05MupJqlR-cndxRSGdMHz0_5j7sP2RssRx9QezRcQks-MDZdnEy8lf3Jci1KJJ_D3_4cbAlG56HeR4KbxRMlg34Od91VUuwdI2DTyXBJV5_Az531w_e_SsNgmmVnb7nMRtD7DQ8GgO22eRi1cUZbtzou7VVCOw11a_B_eLSbx2_xUzLF8NZ-MuX1gecuNlBjFgzo5-cXEkuPdqC3VPIQRXQd2bGe1hGcLS3qfFiBzr-9PuuBWuZ7aA599NAR2c4uhn-_hOItUsxKXxEVfAkf1rt3hWBbg_h7mjgt_K33X3UZ_WraKnphDmPbDfZaCF7VVRDO3b9hMcu-94UglAldBXcbMM8Xa5E9k7qq0CBdt_Gti-MMQojJUKqAsmwtaDBDi0ojwNoRYJ_U3gvzPX70yYu2QHzbMbvJt-3_8JnYmNg9fLVkWCEgSZDGPeNEwueNxqTVw78zql9PUDzK6UJ8jC9YReYWOnsvEh12efY2_wQ3Y5NzDRdk3EccpA7NalhX_oX2PFlxt-_fq9vXz3Wva4tY3GxjO8OKaFNZaTHgslDbJufYTLJO2p0iIbTpQzOSz_AcUfc0z9wlzrCrQ5BAKySQGuAyx2QrnHtW1mMa688cHZBLqITSFgS_095jzP3G336TCcM0irmx6xXJPQ9FQ6bXYjHin0RsXqsG35IkCHKIYdfDe36Yxic757v_mJJJupESKLsqpLmjWk=w1600-h1309-s-no?authuser=1"
+                        width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                    <circle cx="12" cy="13" r="4" />
+                    </svg>
+                    <strong>ColombiAmArte</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-let addBtns = document.querySelectorAll('div.btn-group button');
-addBtns = [...addBtns];
-console.log(addBtns)
-let cartContainer = document.querySelector('.cart-items');
+            </div>
+        </div>
+    </header>
 
+    <main>
 
+        <section class="">
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class=""
+                        aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"
+                        class=""></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
+                        class="active" aria-current="true"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item fondo img1">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1>Admira la elegancia y la belleza de nuestras pinturas.</h1>
+                                <p>
+                                    En nuestra galería de arte encontrarás una amplia variedad de obras de arte que te transportarán 
+                                    a un mundo de creatividad y expresión. Cada pieza es única y te ofrece una experiencia visual
+                                     inigualable. Descubre el poder de la pintura para transformar un espacio y llenarlo de vida. 
+                                     ¡Explora nuestro catálogo y lleva un pedacito de arte a tu hogar!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item fondo img2">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1 class="">ColombiAmArte</h1>
+                                <p class="">Es el hogar del arte colombiano de alta calidad. Celebra nuestra cultura y patrimonio con cada obra de arte.</p>
+                                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item active fondo img3">
+                        <div class="container">
+                            <div class="carousel-caption ini">
+                                <h1></h1>
+                                <p></p>
+                                <button class="btn btn-lg btn-success box-shadow--16dp" href="#">Explora nuestro
+                                    arte</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
 
-addBtns.forEach(btn => {
-    btn.addEventListener('click', event => {
-        let actualID = (btn.value)
-        let actualProduct = productsArray.find(item => item.id == actualID);
-        let itemCompra = {"id":actualID ,"nombre": actualProduct.titulo, "autor": actualProduct.autor, "precio": actualProduct.precio, "imagen": actualProduct.imagenes.img1 }
-        carrito.push(itemCompra)
-        enviarWap();
-    });
+        <div class="album py-5 bg-body-tertiary">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pinturas">
 
-});
+                </div>
+            </div>
+        </div>
 
+    </main>
 
-function enviarWap() {
-    //INGRESE UN NUMERO DE WHATSAPP VALIDO AQUI:
-    let telefono = "573153582241";
-    let texto = " ";
+    <footer class="text-body-secondary py-5">
+        <div class="container">
+            <p class="float-end mb-1">
+                <a href="#">De vuelta al inicio</a>
+            </p>
+            <p class="mb-1">Desarrollado por Abel Narvaez 3107680539!</p>
+        </div>
+    </footer>
 
-    //SE OBTIENE LOS PRODUCTOS CANTIDAD Y PRECIO DEL CARRITO
-    carrito.forEach(item => {
-        texto = `Me interesa la obra
-        %0ATitulo: *${item.nombre}*
-        %0AAutor: *${item.autor}*
-        %0AValor: USD$ *${item.precio}*
-    %0A%0A`;;
-    });
+    <script type="module" src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+        crossorigin="anonymous"></script>
 
-    let url = `https://api.whatsapp.com/send?phone=${telefono}&text=
-		*ColombiAmArte*%0A%0A
-		Tu compra:%0A
-		${texto}`;
+</body>
 
-    window.open(url);
-}
-
+</html>
