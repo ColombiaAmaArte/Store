@@ -24,7 +24,6 @@ let data = await res.json()
 
 //ARREGLO CON PRODUCTOS LIMITAMOS
 let productsArray = data
-
 //IMPRIMIR PRODUCTOS EN PANTALLA
 productsArray.forEach(obra => {
     // se utiliza innerHTML para decir que va ir sumar al contenido los datos del servidor
