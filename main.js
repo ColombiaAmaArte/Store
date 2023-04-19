@@ -28,6 +28,7 @@ let productsArray = data
 //IMPRIMIR PRODUCTOS EN PANTALLA
 productsArray.forEach(obra => {
     // se utiliza innerHTML para decir que va ir sumar al contenido los datos del servidor
+    // tecnica  <p class="card-text">Estilo: ${obra.estilo}</p>
     productContainer.innerHTML += `
     <div class="col">
         <div class="card shadow-sm">
@@ -41,9 +42,8 @@ productsArray.forEach(obra => {
             <div class="card-body">
                 <p class="card-text">Titulo: ${obra.titulo}</p>
                 <p class="card-text">Autor: ${obra.autor}</p>
-                <p class="card-text">Estilo: ${obra.estilo}</p>
                 <p class="card-text">Tecnica: ${obra.tecnica}</p>
-                <p class="card-text">Medidas: Alto ${obra.Medidas.alto} <br> Ancho ${obra.Medidas.ancho} <br> Profundidad ${obra.Medidas.profundo}</p>
+                <p class="card-text">Medidas: ${obra.medidas}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <button type="button" value="${obra.id}" class="btn btn-sm btn-outline-secondary compra ">Me Interesa</button>
@@ -76,7 +76,7 @@ addBtns.forEach(btn => {
 
 function enviarWap() {
     //INGRESE UN NUMERO DE WHATSAPP VALIDO AQUI:
-    let telefono = "573107680539";
+    let telefono = "573153582241";
     let texto = " ";
 
     //SE OBTIENE LOS PRODUCTOS CANTIDAD Y PRECIO DEL CARRITO
@@ -89,7 +89,7 @@ function enviarWap() {
     });
 
     let url = `https://api.whatsapp.com/send?phone=${telefono}&text=
-		*ColombiaAmaArte*%0A%0A
+		*ColombiAmArte*%0A%0A
 		Tu compra:%0A
 		${texto}`;
 
