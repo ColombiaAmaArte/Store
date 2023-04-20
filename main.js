@@ -24,6 +24,7 @@ let data = await res.json()
 
 //ARREGLO CON PRODUCTOS LIMITAMOS
 let productsArray = data
+
 //IMPRIMIR PRODUCTOS EN PANTALLA
 productsArray.forEach(obra => {
     // se utiliza innerHTML para decir que va ir sumar al contenido los datos del servidor
@@ -45,7 +46,7 @@ productsArray.forEach(obra => {
                 <p class="card-text">Medidas: ${obra.medidas}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <button type="button" value="${obra.id}" class="btn btn-sm btn-outline-secondary compra ">Me Interesa</button>
+                        <button type="button" value="${obra.id}" class="btn btn-sm btn-success btn-outline compra ">Me Interesa</button>
                     </div>
                     <small class="text-body-secondary">USD $${obra.precio}</small>
                 </div>
@@ -56,10 +57,7 @@ productsArray.forEach(obra => {
 
 let addBtns = document.querySelectorAll('div.btn-group button');
 addBtns = [...addBtns];
-console.log(addBtns)
 let cartContainer = document.querySelector('.cart-items');
-
-
 
 addBtns.forEach(btn => {
     btn.addEventListener('click', event => {
@@ -71,7 +69,6 @@ addBtns.forEach(btn => {
     });
 
 });
-
 
 function enviarWap() {
     //INGRESE UN NUMERO DE WHATSAPP VALIDO AQUI:
@@ -95,3 +92,8 @@ function enviarWap() {
     window.open(url);
 }
 
+var elmnt = document.getElementById("listArt");
+
+function scrollTo() {
+  elmnt.scrollIntoView(true); // Top
+}
