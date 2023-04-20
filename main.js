@@ -80,12 +80,11 @@ function enviarWap() {
         texto = `Me interesa la obra
         %0ATitulo: *${item.nombre}*
         %0AAutor: *${item.autor}*
-        %0AValor: USD$ *${item.precio}*
-    %0A%0A`;;
+        %0AValor: USD$ *${item.precio}*`;;
     });
 
     let url = `https://api.whatsapp.com/send?phone=${telefono}&text=
-		*Colombiamarte*%0A%0A
+		*Colombiamarte*%0A
 		Tu compra:%0A
 		${texto}`;
 
