@@ -85,15 +85,9 @@ function enviarWap() {
     });
 
     let url = `https://api.whatsapp.com/send?phone=${telefono}&text=
-		*ColombiAmArte*%0A%0A
+		*Colombiamarte*%0A%0A
 		Tu compra:%0A
 		${texto}`;
 
     window.open(url);
-}
-
-var elmnt = document.getElementById("listArt");
-
-function scrollTo() {
-  elmnt.scrollIntoView(true); // Top
 }
