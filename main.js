@@ -32,13 +32,15 @@ productsArray.forEach(obra => {
     productContainer.innerHTML += `
     <div class="col">
         <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225"
+            <a href="producto.html?id=${obra.id}">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225"
                 src="${obra.imagenes.img1}" role="img" aria-label="Placeholder:"
                 preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Placeholder</title>
                 <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                    dy=".3em"></text>
-            </svg>
+                dy=".3em"></text>
+                </svg>
+            </a>
             <div class="card-body">
                 <p class="card-text">Titulo: ${obra.titulo}</p>
                 <p class="card-text">Autor: ${obra.autor}</p>
@@ -67,7 +69,7 @@ addBtns.forEach(btn => {
         carrito.push(itemCompra)
         enviarWap();
     });
-
+    
 });
 
 function enviarWap() {
@@ -80,13 +82,24 @@ function enviarWap() {
         texto = `Me interesa la obra
         %0ATitulo: *${item.nombre}*
         %0AAutor: *${item.autor}*
-        %0AValor: USD$ *${item.precio}*`;;
+        %0AValor: USD$ *${item.precio}*
+    %0A%0A`;;
     });
 
     let url = `https://api.whatsapp.com/send?phone=${telefono}&text=
-		*Colombiamarte*%0A
+		*ColombiAmArte*%0A%0A
 		Tu compra:%0A
 		${texto}`;
 
     window.open(url);
 }
+
+var elmnt = document.getElementById("listArt");
+
+function scrollTo() {
+  elmnt.scrollIntoView(true); // Top
+}
+
+function myFunction() {
+    console.log("hola");
+  }
