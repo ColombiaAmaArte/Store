@@ -65,7 +65,7 @@ addBtns.forEach(btn => {
     btn.addEventListener('click', event => {
         let actualID = (btn.value)
         let actualProduct = productsArray.find(item => item.id == actualID);
-        let itemCompra = {"id":actualID ,"nombre": actualProduct.titulo, "autor": actualProduct.autor, "precio": actualProduct.precio, "imagen": actualProduct.imagenes.img1 }
+        let itemCompra = {"id":actualID ,"nombre": actualProduct.titulo, "autor": actualProduct.autor, "precio": actualProduct.precio, "imagen": actualProduct.img1 }
         carrito.push(itemCompra)
         enviarWap();
     });
